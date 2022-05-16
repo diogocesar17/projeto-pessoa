@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  <head>
+  		<title>ProjetoPessoa</title>
+  		<!--Import Google Icon Font-->
+      	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      	<!--Import materialize.css-->
+      	<link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+
+	    <!--Let browser know website is optimized for mobile-->
+      	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+  <body>
+    	<header>
+  		  <nav class="yellow darken-3">
+		    <div class="nav-wrapper">
+		      <a href="#" class="brand-logo center">Cadastro de Pessoa</a>
+		      <ul id="nav-mobile" class="right hide-on-med-and-down">
+		        <li><a href="/pessoas" class="waves-effect waves-light btn"><i class="material-icons left">format_list_bulleted</i>Lista de Pessoas</a></li>
+		      </ul>
+		    </div>
+		  </nav>
+  		</header>
+  		
+  		<div class="container formPessoa">
+	  		<form class="container" method="post">
+	  			<div class="row">
+			  		<div class="input-field" style="margin-left: 1.4%;">
+			  			Nome: <input type="text" value="" name="nome"/>
+			  		</div>
+	  				<div class="input-field col s3">
+			  			Data Nascimento: <input type="date" value="" name="dataNasc"/>
+	  				</div>
+		  			<div class="input-field col s2">
+			  			CPF: <input oninput="mascara(this)" type="text" value="" name="cpf"/>  			
+		  			</div>
+				  	<div class="input-field col s2">
+			  			Sexo (M/F): <input type="text" value="" maxlength="1"name="sexo"/>		
+		  			</div>
+		  			<div class="input-field col s2">
+			  			Altura: <input type="text" value="" name="altura"/>		
+		  			</div>
+		  			<div class="input-field col s2">
+			  			Peso: <input type="text" value="" name="peso"/>		
+		  			</div>
+	  			</div>
+	  			
+	  			<button class="waves-effect waves-light btn" type="submit">Salvar</button>
+	  		</form>
+  		</div>
+  		
+  		<!--JavaScript at end of body for optimized loading-->
+      	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+      	<script type="text/javascript">
+	      	function mascara(i){
+	      	   
+	      	   var v = i.value;
+	      	   
+	      	   if(isNaN(v[v.length-1])){ // impede entrar outro caractere que não seja número
+	      	      i.value = v.substring(0, v.length-1);
+	      	      return;
+	      	   }
+	      	   
+	      	   i.setAttribute("maxlength", "14");
+	      	   if (v.length == 3 || v.length == 7) i.value += ".";
+	      	   if (v.length == 11) i.value += "-";
+	
+	      	}
+      	</script>
+  </body>
+</html>

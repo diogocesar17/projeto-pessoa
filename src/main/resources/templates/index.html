@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  <head>
+ 		<title>ProjetoPessoa</title>
+ 		<!--Import Google Icon Font-->
+      	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      	<!--Import materialize.css-->
+      	<link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+
+	    <!--Let browser know website is optimized for mobile-->
+      	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+  <body>
+  		<header>
+  		  <nav class="yellow darken-3"> 
+		    <div class="nav-wrapper">
+		      <a href="#" class="brand-logo center">Lista de Pessoas</a>
+		      <ul id="nav-mobile" class="right hide-on-med-and-down">
+		        <li><a href="/cadastrarPessoa" class="waves-effect waves-light btn"><i class="material-icons left">add_circle_outline</i>Cadastrar Pessoa</a></li>
+		      </ul>
+		    </div>
+		  </nav>
+  		</header>
+
+		
+		<div class="container">
+	  		<table id="myTable">
+	  			<thead>
+	  				<tr>
+	  					<th>Nome</th>
+	  					<th>CPF</th>
+	  					<th>Sexo</th>
+	  					<th>Altura</th>
+	  					<th>Peso</th>
+	  					<th>Data Nascimento</th>
+	  				</tr>
+	  			</thead>
+	  			<tbody>
+		  			<tr th:each="pessoa : ${pessoas}">
+		  				<td><span th:text="${pessoa.nome}"></span></td>
+		  				<td><span th:text="${pessoa.cpf}"></span></td>
+		  				<td><span th:text="${pessoa.sexo}"></span></td>
+		  				<td><span th:text="${pessoa.altura}"></span></td>
+		  				<td><span th:text="${pessoa.peso}"></span></td>
+		  				<td><span th:text="${pessoa.dataNasc}"></span></td>
+			  		</tr>
+	  			</tbody>
+	
+	  		</table>
+	  		<div style="margin-top: 3rem; float: right;">
+		  		 <a href="#modalPesquisa" class="waves-effect waves-light btn modal-trigger"><i class="material-icons right">search</i>Pesquisar</a>
+	  		</div>
+		</div>
+	 		 	<!-- Modal Structure -->
+		  <div id="modalPesquisa" class="modal">
+			  <div class="modal-content">
+			      <h4  style="text-align:center">Pesquisar Pessoa</h4>
+			      <form class="container" th:action="@{/}">
+		    		<div class=" row col s3">
+					 	Nome: <input type="text" th:name="nomePesquisa"/> 
+		    		</div>
+				 	<div class="modal-footer">
+				    	<button type="submit" class="btn btn-info col-2">Buscar</button>
+				    </div>
+				</form>
+			  </div>
+		  </div>
+
+
+  		<!--JavaScript at end of body for optimized loading-->
+  		<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+      	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+      	<script>
+      		$(document).ready(function(){
+      			$('.modal').modal();
+      		});
+      	</script>
+  </body>
+</html>

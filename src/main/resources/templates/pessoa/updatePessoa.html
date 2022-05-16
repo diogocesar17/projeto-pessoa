@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+ 		<title>ProjetoPessoa</title>
+ 		<!--Import Google Icon Font-->
+      	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      	<!--Import materialize.css-->
+      	<link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+
+	    <!--Let browser know website is optimized for mobile-->
+      	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+<body>
+  		<header>
+  		  <nav class="yellow darken-3"> 
+		    <div class="nav-wrapper">
+		      <a href="#" class="brand-logo center">Lista de Pessoas</a>
+		      <ul id="nav-mobile" class="right hide-on-med-and-down">
+		        <li><a href="/pessoas" class="waves-effect waves-light btn"><i class="material-icons left">format_list_bulleted</i>Lista de Pessoas</a></li>
+		      </ul>
+		    </div>
+		  </nav>
+  		</header>
+
+	<div class="container">
+	
+	    <form class="col s8" action="#" th:action="@{/save}" th:object="${pessoa}"
+          method="POST">
+			<input type="hidden" th:field="*{codigo}" />
+	        Nome: <input type="text" th:field="*{Nome}" class="form-control mb-4 col-4" placeholder="Course name">
+	        <div class="row">
+		       	<div class="input-field col s2">
+		        	Data Nascimento: <input type="date" th:field="*{dataNasc}" class="form-control mb-4 col-4">
+		        </div>
+	  			<div class="input-field col s2">
+		  			CPF: <input type="text" th:field="*{cpf}" class="form-control mb-4 col-4">		
+	  			</div>
+			  	<div class="input-field col s2">
+		  			Sexo (M/F): <input type="text" th:field="*{sexo}" class="form-control mb-4 col-4">
+	  			</div>
+	  			<div class="input-field col s2">
+		  			Altura: <input type="text" th:field="*{altura}" class="form-control mb-4 col-4">	
+	  			</div>
+	  			<div class="input-field col s2">
+		  			Peso: <input type="text" th:field="*{peso}" class="form-control mb-4 col-4">	
+	  			</div>
+	        
+	        </div>
+	        <button type="submit" class="btn btn-info col-2">Atualizar</button>
+	    </form>
+	</div>
+    
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  <head>
+  		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  		<title>ProjetoPessoa</title>
+  		<!--Import Google Icon Font-->
+      	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      	<!--Import materialize.css-->
+      	<link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+      	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+	    <!--Let browser know website is optimized for mobile-->
+	    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+      	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+  <body>
+    	<header>
+  		  <nav class="yellow darken-3">
+		    <div class="nav-wrapper">
+		      <a href="#" class="brand-logo center">Pesquisar Pessoa</a>
+		      <ul id="nav-mobile" class="right hide-on-med-and-down">
+		        <li><a href="/pessoas" class="waves-effect waves-light btn"><i class="material-icons left">format_list_bulleted</i>Lista de Pessoas</a></li>
+		      </ul>
+		    </div>
+		  </nav>
+  		</header>
+  		
+
+  		<table id="myTable" class="container">
+  			<thead>
+  				<tr>
+  					<th>Nome</th>
+  					<th>CPF</th>
+  					<th>Sexo</th>
+  					<th>Altura</th>
+  					<th>Peso</th>
+  					<th>Data Nascimento</th>
+  					<th style="text-align:center">Ações</th>
+  				</tr>
+  			</thead>
+  			<tbody>
+	  			<tr th:each="pessoa :  ${buscaPessoas}">
+	  				<td><span th:text="${pessoa.nome}"></span></td>
+	  				<td><span th:text="${pessoa.cpf}"></span></td>
+	  				<td><span th:text="${pessoa.sexo}"></span></td>
+	  				<td><span th:text="${pessoa.altura}"></span></td>
+	  				<td><span th:text="${pessoa.peso}"></span></td>
+	  				<td><span th:text="${pessoa.dataNasc}"></span></td>
+	  				<td style="text-align:center">
+	  					<a href="#modalEditClient" class="waves-effect waves-light tooltipped modal-trigger" data-position="bottom" data-tooltip="Peso Ideal"
+	  						th:data-parameter1="${pessoa.sexo}"  th:data-parameter2="${pessoa.altura}"  th:onclick="showFunctionModal(this.getAttribute('data-parameter1'),this.getAttribute('data-parameter2'))" >
+	  						<i class="material-icons left black-text">info</i></a>
+	  					<a class="waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Editar" th:href="${(#mvc.url('PC#atualizarPessoa').arg(0, pessoa.codigo)).build()}"><i class="material-icons left">edit</i></a>
+	  					<a class="waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Excluir" th:href="${(#mvc.url('PC#deletarPessoa').arg(0, pessoa.codigo)).build()}"><i class="material-icons left red-text">delete</i></a>	
+	 				</td>
+		  		</tr>
+  			</tbody>
+  		</table>
+  		
+  		<!-- Modal -->
+		<div id="modalEditClient" class="modal center">
+		    <div class="modal-content" >
+		        <h4>Peso Ideal</h4>
+		        <p>O seu peso ideal é: </p>
+		        <span type="text" id="pesoIdeal" style="font-size: large;"></span>
+		    </div>
+		    <div class="modal-footer">
+		        <a href="#!" class="modal-action modal-close waves-effect waves-green btn">Ok</a>
+		    </div>
+		</div>
+  		
+  		<!--JavaScript at end of body for optimized loading-->  		
+  		
+  		<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+      	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+      	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+		
+      	<script>
+	        $(document).ready(function(){
+	            $('.tooltipped').tooltip();
+	          });
+      	</script>
+      	
+      	<script>
+      	function showFunctionModal(sexo, altura) {
+      		console.log("sexo: ", sexo);
+      		var pesoIdeal = 0;
+      		if(sexo.toUpperCase() == "F") {
+      			console.log("Feminino");
+      			pesoIdeal = ( 62,1 * altura ) - 44.7;
+      		}
+      		if(sexo.toUpperCase() == "M") {
+      			console.log("Masculino");
+      			pesoIdeal = ( 72,7 * altura ) - 58;
+      		}
+      		if (pesoIdeal < 0) {
+                // Multiply number with -1
+                // to make it positive
+                pesoIdeal = pesoIdeal * -1;
+            }
+          	$('.modal').modal({
+          	    ready: function(modal, trigger) {
+          	    	$("#pesoIdeal").text(pesoIdeal);
+          	    }
+          	});
+       	}
+      	</script>
+      	
+  </body>
+</html>
